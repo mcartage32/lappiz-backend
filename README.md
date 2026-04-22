@@ -165,3 +165,45 @@ docker run -p 3000:3000 --name lappiz-backend lappiz-backend
 
 La API estará disponible en:
 http://localhost:3000/api/v1
+
+## 10. Ejecución Frontend y Backend con Docker Compose
+
+Se incluye un archivo `docker-compose.yaml` que permite levantar tanto el backend como el frontend con un solo comando.
+
+### 📁 Estructura esperada del proyecto
+
+```
+raiz/
+├── lappiz-backend/
+│   ├── Dockerfile
+│   └── src/
+│
+├── lappiz-frontend/
+│   ├── Dockerfile
+│   └── src/
+│
+└── docker-compose.yaml
+```
+
+### 🚀 Ejecución
+
+Desde la raíz del proyecto, ejecutar:
+
+```
+docker compose up --build
+```
+
+### 🌐 Servicios disponibles
+
+Una vez levantados los contenedores:
+
+- Backend: http://localhost:3000/api/v1
+- Frontend: http://localhost:5173
+
+---
+
+### ⚠️ Notas
+
+- El frontend corre en modo desarrollo (Vite) dentro del contenedor.
+- El backend se ejecuta compilado en Node.js.
+- Asegúrate de que los puertos 3000 y 5173 estén disponibles.
