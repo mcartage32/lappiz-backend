@@ -1,8 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { BadRequestException } from '@nestjs/common';
-import type { Lead } from './leads.interface';
 import * as fs from 'fs';
 import * as path from 'path';
+import type { Lead } from './leads.interface';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 import { CreateLeadDto } from './leads.dto';
 
 @Injectable()
@@ -28,8 +28,27 @@ export class LeadsService {
     }
   }
 
-  getLeadsList(): Lead[] {
-    return this.readFile();
+  getLeadsList(page = 1, limit = 10) {
+    const leads = this.readFile();
+
+    const total = leads.length;
+    const totalPages = Math.ceil(total / limit);
+
+    // evitar páginas inválidas
+    const safePage = Math.min(Math.max(page, 1), totalPages || 1);
+
+    const startIndex = (safePage - 1) * limit;
+    const endIndex = startIndex + limit;
+
+    const data = leads.slice(startIndex, endIndex);
+
+    return {
+      data,
+      total,
+      page: safePage,
+      limit,
+      totalPages,
+    };
   }
 
   addLead(Lead: CreateLeadDto): Lead {
