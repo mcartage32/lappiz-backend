@@ -3,6 +3,7 @@ import { BadRequestException } from '@nestjs/common';
 import type { Person } from './people.interface';
 import * as fs from 'fs';
 import * as path from 'path';
+import { CreatePersonDto } from './people.dto';
 
 @Injectable()
 export class PeopleService {
@@ -31,7 +32,7 @@ export class PeopleService {
     return this.readFile();
   }
 
-  addPerson(person: Person): Person {
+  addPerson(person: CreatePersonDto): Person {
     const people = this.readFile();
 
     const exists = people.some((p) => p.email === person.email);
@@ -40,10 +41,21 @@ export class PeopleService {
       throw new BadRequestException('Email already exists');
     }
 
-    people.push(person);
+    const lastId = people.length > 0 ? people[people.length - 1].id : 0;
+
+    const newPerson: Person = {
+      id: lastId + 1,
+      name: person.name,
+      email: person.email,
+      createdAt: new Date().toLocaleString('es-CO', {
+        timeZone: 'America/Bogota',
+      }),
+    };
+
+    people.push(newPerson);
 
     this.writeFile(people);
 
-    return person;
+    return newPerson;
   }
 }
