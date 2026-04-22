@@ -1,0 +1,27 @@
+services:
+  backend:
+    build:
+      context: ./lappiz-backend
+      dockerfile: Dockerfile
+    container_name: lappiz-backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./lappiz-backend:/app
+    environment:
+      - NODE_ENV=development
+
+  frontend:
+    build:
+      context: ./lappiz-frontend
+      dockerfile: Dockerfile
+    container_name: lappiz-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./lappiz-frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - backend
