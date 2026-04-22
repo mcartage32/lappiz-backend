@@ -43,11 +43,28 @@ src/
 
 ---
 
-### Instalación
+### Instalación paso a paso
+
+1) Clonar el repositorio
 
 ```
 git clone https://github.com/tu-usuario/lappiz-backend.git
+```
+
+2) Ingresar al proyecto
+```
 cd lappiz-backend
+```
+3) Crear archivo .env en la raíz del proyecto (basarse en el archivo .env.example)
+```
+PORT=3000
+```
+4) (Opcional) Evitar versionar cambios en el archivo JSON
+```
+git update-index --assume-unchanged src/data/people.json
+```
+5) Instalar dependencias
+```
 bun install
 ```
 
