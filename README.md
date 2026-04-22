@@ -123,7 +123,7 @@ http://localhost:3000/api/docs
 
 ---
 
-## 9. Persistencia de Datos
+## 8. Persistencia de Datos
 
 Archivo utilizado:
 
@@ -142,3 +142,17 @@ Ejemplo:
 ]
 ```
 
+## 9. Ejecución con Docker
+
+Para ejecutar la aplicación usando Docker, sigue los siguientes pasos:
+
+### 1) Construir la imagen
+```
+docker build -t lappiz-backend .
+```
+### 2) Ejecutar el contenedor
+```
+docker run -p 3000:3000 --name lappiz-backend lappiz-backend
+```
+La API estará disponible en:
+http://localhost:3000/api/v1
