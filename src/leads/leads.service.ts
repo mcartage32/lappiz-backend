@@ -1,25 +1,25 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { BadRequestException } from '@nestjs/common';
-import type { Person } from './people.interface';
+import type { Lead } from './leads.interface';
 import * as fs from 'fs';
 import * as path from 'path';
-import { CreatePersonDto } from './people.dto';
+import { CreateLeadDto } from './leads.dto';
 
 @Injectable()
-export class PeopleService {
-  private filePath = path.join(process.cwd(), 'src/data/people.json');
+export class LeadsService {
+  private filePath = path.join(process.cwd(), 'src/data/leads.json');
 
-  private readFile(): Person[] {
+  private readFile(): Lead[] {
     try {
       const data = fs.readFileSync(this.filePath, 'utf-8');
-      return JSON.parse(data || '[]') as Person[];
+      return JSON.parse(data || '[]') as Lead[];
     } catch (error) {
       console.error('Error reading file:', error);
       throw new InternalServerErrorException('Error reading data');
     }
   }
 
-  private writeFile(data: Person[]) {
+  private writeFile(data: Lead[]) {
     try {
       fs.writeFileSync(this.filePath, JSON.stringify(data, null, 2));
     } catch (error) {
@@ -28,34 +28,34 @@ export class PeopleService {
     }
   }
 
-  getPeople(): Person[] {
+  getLeadsList(): Lead[] {
     return this.readFile();
   }
 
-  addPerson(person: CreatePersonDto): Person {
-    const people = this.readFile();
+  addLead(Lead: CreateLeadDto): Lead {
+    const leads = this.readFile();
 
-    const exists = people.some((p) => p.email === person.email);
+    const exists = leads.some((p) => p.email === Lead.email);
 
     if (exists) {
       throw new BadRequestException('Email already exists');
     }
 
-    const lastId = people.length > 0 ? people[people.length - 1].id : 0;
+    const lastId = leads.length > 0 ? leads[leads.length - 1].id : 0;
 
-    const newPerson: Person = {
+    const newLead: Lead = {
       id: lastId + 1,
-      name: person.name,
-      email: person.email,
+      name: Lead.name,
+      email: Lead.email,
       createdAt: new Date().toLocaleString('es-CO', {
         timeZone: 'America/Bogota',
       }),
     };
 
-    people.push(newPerson);
+    leads.push(newLead);
 
-    this.writeFile(people);
+    this.writeFile(leads);
 
-    return newPerson;
+    return newLead;
   }
 }

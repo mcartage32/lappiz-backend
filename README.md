@@ -3,7 +3,7 @@
 ## 1. Descripción General
 
 Desarrollo de una API REST para la gestión de interesados en demos de una plataforma LowCode.  
-La solución permite registrar y consultar personas interesadas, aplicando buenas prácticas de arquitectura, validación de datos y documentación.
+La solución permite registrar y consultar personas interesadas, aplicando buenas prácticas de arquitectura, validación de datos y documentación. Cabe resaltar que una persona interesa se denominara "lead".
 
 ---
 
@@ -12,14 +12,14 @@ La solución permite registrar y consultar personas interesadas, aplicando buena
 ```
 test/
 src/
-├── people/
-│   ├── people.controller.ts
-│   ├── people.dto.ts
-│   ├── people.interface.ts
-│   ├── people.module.ts
-│   └── people.service.ts
+├── leads/
+│   ├── leads.controller.ts
+│   ├── leads.dto.ts
+│   ├── leads.interface.ts
+│   ├── leads.module.ts
+│   └── leads.service.ts
 ├── data/
-│   └── people.json
+│   └── leads.json
 ├── app.module.ts
 ├── main.ts
 ```
@@ -38,35 +38,41 @@ src/
 
 ### Requisitos previos
 
-- Bun 
-- Node.js 
+- Bun
+- Node.js
 
 ---
 
 ### Instalación paso a paso
 
-1) Clonar el repositorio
+1. Clonar el repositorio
 
 ```
 git clone https://github.com/tu-usuario/lappiz-backend.git
 ```
 
-2) Ingresar al proyecto
+2. Ingresar al proyecto
+
 ```
 cd lappiz-backend
 ```
-3) Crear archivo `.env` en la raíz del proyecto (basarse en el archivo .env.example)
+
+3. Crear archivo `.env` en la raíz del proyecto (basarse en el archivo .env.example)
+
 ```
 PORT=3000
 ```
-4) (Opcional) Evitar versionar cambios en el archivo JSON
+
+4. (Opcional) Evitar versionar cambios en el archivo JSON
+
 ```
-git update-index --assume-unchanged src/data/people.json
+git update-index --assume-unchanged src/data/leads.json
 ```
+
 #### Nota: El comando anterior permite usar el archivo como una “base de datos local”, evitando que los cambios generados durante pruebas se suban al repositorio.
 
+5. Instalar dependencias
 
-5) Instalar dependencias
 ```
 bun install
 ```
@@ -106,14 +112,13 @@ Base URL:
 
 http://localhost:3000/api/v1
 
-### Obtener personas
+### Obtener leads
 
-GET /get-people
+GET /leads
 
-### Crear persona
+### Crear lead
 
-POST /add-person
-
+POST /leads
 
 ## 7. Documentación de la API
 
@@ -127,7 +132,7 @@ http://localhost:3000/api/docs
 
 Archivo utilizado:
 
-src/data/people.json
+src/data/leads.json
 
 Ejemplo:
 
@@ -147,12 +152,16 @@ Ejemplo:
 Para ejecutar la aplicación usando Docker, sigue los siguientes pasos:
 
 ### 1) Construir la imagen
+
 ```
 docker build -t lappiz-backend .
 ```
+
 ### 2) Ejecutar el contenedor
+
 ```
 docker run -p 3000:3000 --name lappiz-backend lappiz-backend
 ```
+
 La API estará disponible en:
 http://localhost:3000/api/v1
