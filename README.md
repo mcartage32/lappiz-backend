@@ -1,4 +1,4 @@
-# Lappiz Backend - API de Gestión de Interesados (NestJS + JSON)
+# Lappiz Backend - API de Gestión de Interesados (Leads) (NestJS + JSON)
 
 ## 1. Descripción General
 
