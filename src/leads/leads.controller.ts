@@ -10,7 +10,7 @@ import {
   ApiCreatedResponse,
 } from '@nestjs/swagger';
 
-@ApiTags('leads')
+@ApiTags('Leads')
 @Controller('leads')
 export class LeadsController {
   constructor(private readonly leadsService: LeadsService) {}
