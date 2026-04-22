@@ -7,70 +7,39 @@ La solución permite registrar y consultar personas interesadas, aplicando buena
 
 ---
 
-## 2. Arquitectura del Proyecto
-
-El backend está construido utilizando NestJS, siguiendo una arquitectura modular basada en separación de responsabilidades.
-
-### Diagrama de Arquitectura
+## 2. Estructura del Proyecto
 
 ```
-+--------------------------------------------------+
-|                 CLIENTE (Frontend)               |
-+-------------------------+------------------------+
-                          |
-                          v
-+--------------------------------------------------+
-|                 API (NestJS)                     |
-|  +-------------------+   +---------------------+ |
-|  |   Controllers     |   |      Services       | |
-|  | (Endpoints REST)  |-->| (Lógica negocio)    | |
-|  +-------------------+   +---------------------+ |
-|                          |
-|                          v
-|                +------------------+              |
-|                |  JSON Storage    |              |
-|                | (people.json)    |              |
-|                +------------------+              |
-+--------------------------------------------------+
-```
-
----
-
-## 3. Estructura del Proyecto
-
-```
+test/
 src/
-├── main.ts
-├── app.module.ts
 ├── people/
-│   ├── dto/
-│   │   ├── create-person.dto.ts
-│   │   └── person-response.dto.ts
-│   ├── interfaces/
-│   │   └── person.interface.ts
 │   ├── people.controller.ts
-│   ├── people.service.ts
+│   └── people.dto.ts
+│   └── people.interface.ts
 │   └── people.module.ts
+│   ├── people.service.ts
 ├── data/
 │   └── people.json
+├── app.module.ts
+├── main.ts
 ```
 
 ---
 
-## 4. Consideraciones Generales
+## 3. Consideraciones Generales
 
-- El backend corre por defecto en el puerto **8000**.
+- El backend corre por defecto en el puerto **3000**.
 - Se utiliza un archivo JSON como mecanismo de persistencia.
 - No se requiere base de datos para esta prueba.
 
 ---
 
-## 5. Instalación y Ejecución
+## 4. Instalación y Ejecución
 
 ### Requisitos previos
 
-- Bun (recomendado)
-- Node.js (opcional)
+- Bun 
+- Node.js 
 
 ---
 
@@ -101,49 +70,28 @@ npm run start:dev
 
 ---
 
-## 6. Variables de entorno
+## 5. Variables de entorno
 
 Crear archivo `.env` en la raíz:
 
 ```
-PORT=8000
-FRONTEND_URL=http://localhost:3000
+PORT=3000
 ```
 
 ---
 
-## 7. Endpoints de la API
+## 6. Endpoints de la API
 
 Base URL:
 
-http://localhost:8000/api/v1
+http://localhost:3000/api/v1
 
-### Obtener personas
-
-GET /people
-
----
-
-### Crear persona
-
-POST /people
-
-Body:
-
-```
-{
-  "name": "Marcelo",
-  "email": "marcelo@email.com"
-}
-```
-
----
 
 ## 8. Documentación de la API
 
 Swagger disponible en:
 
-http://localhost:8000/api/docs
+http://localhost:3000/api/docs
 
 ---
 
@@ -166,78 +114,3 @@ Ejemplo:
 ]
 ```
 
----
-
-## 10. Decisiones Técnicas
-
-### Uso de NestJS
-
-- Arquitectura modular
-- Escalable
-- Inyección de dependencias
-
-### Uso de JSON como persistencia
-
-- Simple para pruebas
-- No requiere configuración externa
-
-### Uso de DTOs
-
-- Separación entre entrada y modelo
-- Mejor control de datos
-
-### Validaciones
-
-- Uso de class-validator
-- Previene datos inválidos
-
-### Manejo de errores
-
-```
-{
-  "message": "Email already exists",
-  "error": "Bad Request",
-  "statusCode": 400
-}
-```
-
-### Uso de Bun
-
-- Instalaciones más rápidas
-- Mejor rendimiento
-
----
-
-## 11. Manejo de CORS
-
-```
-app.enableCors({
-  origin: process.env.FRONTEND_URL,
-});
-```
-
----
-
-## 12. Supuestos
-
-- No hay autenticación
-- Bajo volumen de datos
-- No hay concurrencia
-
----
-
-## 13. Notas adicionales
-
-```
-git update-index --assume-unchanged src/data/people.json
-```
-
----
-
-# Estado del proyecto
-
-- API REST funcional
-- Validaciones
-- Manejo de errores
-- Persistencia en JSON
-- Documentación Swagger
