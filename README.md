@@ -1,98 +1,243 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Lappiz Backend - API de Gestión de Interesados (NestJS + JSON)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 1. Descripción General
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Desarrollo de una API REST para la gestión de interesados en demos de una plataforma LowCode.  
+La solución permite registrar y consultar personas interesadas, aplicando buenas prácticas de arquitectura, validación de datos y documentación.
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 2. Arquitectura del Proyecto
 
-## Project setup
+El backend está construido utilizando NestJS, siguiendo una arquitectura modular basada en separación de responsabilidades.
 
-```bash
-$ npm install
+### Diagrama de Arquitectura
+
+```
++--------------------------------------------------+
+|                 CLIENTE (Frontend)               |
++-------------------------+------------------------+
+                          |
+                          v
++--------------------------------------------------+
+|                 API (NestJS)                     |
+|  +-------------------+   +---------------------+ |
+|  |   Controllers     |   |      Services       | |
+|  | (Endpoints REST)  |-->| (Lógica negocio)    | |
+|  +-------------------+   +---------------------+ |
+|                          |
+|                          v
+|                +------------------+              |
+|                |  JSON Storage    |              |
+|                | (people.json)    |              |
+|                +------------------+              |
++--------------------------------------------------+
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+## 3. Estructura del Proyecto
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```
+src/
+├── main.ts
+├── app.module.ts
+├── people/
+│   ├── dto/
+│   │   ├── create-person.dto.ts
+│   │   └── person-response.dto.ts
+│   ├── interfaces/
+│   │   └── person.interface.ts
+│   ├── people.controller.ts
+│   ├── people.service.ts
+│   └── people.module.ts
+├── data/
+│   └── people.json
 ```
 
-## Run tests
+---
 
-```bash
-# unit tests
-$ npm run test
+## 4. Consideraciones Generales
 
-# e2e tests
-$ npm run test:e2e
+- El backend corre por defecto en el puerto **8000**.
+- Se utiliza un archivo JSON como mecanismo de persistencia.
+- No se requiere base de datos para esta prueba.
 
-# test coverage
-$ npm run test:cov
+---
+
+## 5. Instalación y Ejecución
+
+### Requisitos previos
+
+- Bun (recomendado)
+- Node.js (opcional)
+
+---
+
+### Instalación
+
+```
+git clone https://github.com/tu-usuario/lappiz-backend.git
+cd lappiz-backend
+bun install
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### Ejecutar en desarrollo
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+```
+bun run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+### Alternativa con Node
 
-Check out a few resources that may come in handy when working with NestJS:
+```
+npm install
+npm run start:dev
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+---
 
-## Support
+## 6. Variables de entorno
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Crear archivo `.env` en la raíz:
 
-## Stay in touch
+```
+PORT=8000
+FRONTEND_URL=http://localhost:3000
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
 
-## License
+## 7. Endpoints de la API
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Base URL:
+
+http://localhost:8000/api/v1
+
+### Obtener personas
+
+GET /people
+
+---
+
+### Crear persona
+
+POST /people
+
+Body:
+
+```
+{
+  "name": "Marcelo",
+  "email": "marcelo@email.com"
+}
+```
+
+---
+
+## 8. Documentación de la API
+
+Swagger disponible en:
+
+http://localhost:8000/api/docs
+
+---
+
+## 9. Persistencia de Datos
+
+Archivo utilizado:
+
+src/data/people.json
+
+Ejemplo:
+
+```
+[
+  {
+    "id": 1,
+    "name": "Marcelo",
+    "email": "test@email.com",
+    "createdAt": "21/4/2026, 15:30:00"
+  }
+]
+```
+
+---
+
+## 10. Decisiones Técnicas
+
+### Uso de NestJS
+
+- Arquitectura modular
+- Escalable
+- Inyección de dependencias
+
+### Uso de JSON como persistencia
+
+- Simple para pruebas
+- No requiere configuración externa
+
+### Uso de DTOs
+
+- Separación entre entrada y modelo
+- Mejor control de datos
+
+### Validaciones
+
+- Uso de class-validator
+- Previene datos inválidos
+
+### Manejo de errores
+
+```
+{
+  "message": "Email already exists",
+  "error": "Bad Request",
+  "statusCode": 400
+}
+```
+
+### Uso de Bun
+
+- Instalaciones más rápidas
+- Mejor rendimiento
+
+---
+
+## 11. Manejo de CORS
+
+```
+app.enableCors({
+  origin: process.env.FRONTEND_URL,
+});
+```
+
+---
+
+## 12. Supuestos
+
+- No hay autenticación
+- Bajo volumen de datos
+- No hay concurrencia
+
+---
+
+## 13. Notas adicionales
+
+```
+git update-index --assume-unchanged src/data/people.json
+```
+
+---
+
+# Estado del proyecto
+
+- API REST funcional
+- Validaciones
+- Manejo de errores
+- Persistencia en JSON
+- Documentación Swagger
