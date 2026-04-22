@@ -14,10 +14,10 @@ test/
 src/
 ├── people/
 │   ├── people.controller.ts
-│   └── people.dto.ts
-│   └── people.interface.ts
-│   └── people.module.ts
-│   ├── people.service.ts
+│   ├── people.dto.ts
+│   ├── people.interface.ts
+│   ├── people.module.ts
+│   └── people.service.ts
 ├── data/
 │   └── people.json
 ├── app.module.ts
@@ -55,7 +55,7 @@ git clone https://github.com/tu-usuario/lappiz-backend.git
 ```
 cd lappiz-backend
 ```
-3) Crear archivo .env en la raíz del proyecto (basarse en el archivo .env.example)
+3) Crear archivo `.env` en la raíz del proyecto (basarse en el archivo .env.example)
 ```
 PORT=3000
 ```
@@ -63,6 +63,9 @@ PORT=3000
 ```
 git update-index --assume-unchanged src/data/people.json
 ```
+#### Nota: El comando anterior permite usar el archivo como una “base de datos local”, evitando que los cambios generados durante pruebas se suban al repositorio.
+
+
 5) Instalar dependencias
 ```
 bun install
@@ -103,8 +106,16 @@ Base URL:
 
 http://localhost:3000/api/v1
 
+### Obtener personas
 
-## 8. Documentación de la API
+GET /get-people
+
+### Crear persona
+
+POST /add-person
+
+
+## 7. Documentación de la API
 
 Swagger disponible en:
 
