@@ -1,10 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+
+import { IsEmail, IsNotEmpty, IsString, Matches } from 'class-validator';
 
 export class CreateLeadDto {
   @ApiProperty({ example: 'Marcelo' })
   @IsString()
   @IsNotEmpty()
+  @Matches(/^[^<>]*$/, {
+    message: 'El nombre no puede contener HTML',
+  })
   name!: string;
 
   @ApiProperty({ example: 'marcelo@email.com' })
